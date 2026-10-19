@@ -69,13 +69,13 @@ public class Equipo {
 	 * Devuelve el JugadorEquipo creado, o null si la inscripcion se rechaza.
 	 */
 	public JugadorEquipo inscribirJugador(Socio socio, String posicion, int numeroCamiseta) {
-		if (!tieneCupo()) {
+		if (tieneCupo() == false) {
 			return null;
 		}
-		if (!categoria.admiteEdad(socio.getEdad())) {
+		if (categoria.admiteEdad(socio.getEdad()) == false) {
 			return null;
 		}
-		if (!camisetaDisponible(numeroCamiseta)) {
+		if (camisetaDisponible(numeroCamiseta) == false) {
 			return null;
 		}
 
@@ -91,7 +91,7 @@ public class Equipo {
 	public int contarJugadoresHabilitados() {
 		int cantidadHabilitados = 0;
 		for (JugadorEquipo jugador : jugadores) {
-			if (!jugador.estaSuspendido()) {
+			if (jugador.estaSuspendido() == false) {
 				cantidadHabilitados++;
 			}
 		}

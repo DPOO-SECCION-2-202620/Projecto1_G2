@@ -185,7 +185,7 @@ public class ProgramaPrueba1 {
 				}
 			}
 		}
-		if (!huboSanciones) {
+		if (huboSanciones == false) {
 			System.out.println("  No hay jugadores suspendidos.");
 		}
 

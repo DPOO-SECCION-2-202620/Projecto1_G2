@@ -52,20 +52,20 @@ public class Partido {
 		boolean tipoCorrecto = false;
 
 		if (nombreDeporte.equals("Futbol") || nombreDeporte.equals("Fútbol")) {
-			tipoCorrecto = estadistica instanceof EstadisticaFutbol;
+			tipoCorrecto = estadistica.getClass() == EstadisticaFutbol.class;
 		} else if (nombreDeporte.equals("Baloncesto")) {
-			tipoCorrecto = estadistica instanceof EstadisticaBaloncesto;
+			tipoCorrecto = estadistica.getClass() == EstadisticaBaloncesto.class;
 		} else if (nombreDeporte.equals("Voleibol")) {
-			tipoCorrecto = estadistica instanceof EstadisticaVoleibol;
+			tipoCorrecto = estadistica.getClass() == EstadisticaVoleibol.class;
 		}
 
 		Equipo equipoJugador = estadistica.getJugador().getEquipo();
 		boolean perteneceAlPartido = equipoJugador == equipoLocal || equipoJugador == equipoVisitante;
-		if (!tipoCorrecto || !perteneceAlPartido) {
+		if (tipoCorrecto == false || perteneceAlPartido == false) {
 			return;
 		}
 
-		if (estadistica instanceof EstadisticaFutbol) {
+		if (estadistica.getClass() == EstadisticaFutbol.class) {
 			EstadisticaFutbol estadisticaFutbol = (EstadisticaFutbol) estadistica;
 			JugadorEquipo jugador = estadisticaFutbol.getJugador();
 			int amarillas = jugador.getAmarillasAcumuladas() + estadisticaFutbol.getTarjetasAmarillas();

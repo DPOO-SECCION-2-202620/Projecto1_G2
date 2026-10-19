@@ -25,17 +25,15 @@ public class Equipo {
 		this.jugadores = new ArrayList<JugadorEquipo>();
 	}
 
-	// ----------------------------------------------------------------
-	// REGLAS DEL EQUIPO - por escribir
-	// ----------------------------------------------------------------
-
 	/**
 	 * Indica si todavia queda espacio en el equipo.
 	 *
 	 * REGLA RD02: cada equipo tiene un cupo maximo de jugadores inscritos.
 	 */
 	public boolean tieneCupo() {
-		// TODO escribir la validacion
+		if (jugadores.size() < cupoMaximo) {
+			return true;
+		}
 		return false;
 	}
 
@@ -45,8 +43,15 @@ public class Equipo {
 	 * REGLA RD03: el numero de camiseta es unico dentro del equipo.
 	 */
 	public boolean camisetaDisponible(int numeroCamiseta) {
-		// TODO escribir la validacion
-		return false;
+		for(int i= 0;i<jugadores.size();i++) {
+			
+			JugadorEquipo jugador =jugadores.get(i);
+			if(jugador.getNumeroCamiseta()==numeroCamiseta) {
+			return false;
+				
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -58,17 +63,25 @@ public class Equipo {
 	 * 3. que el numero de camiseta no este tomado
 	 * 4. que el socio no pertenezca ya a otro equipo de este mismo deporte
 	 *
-	 * La condicion 4 necesita conocer los demas equipos del deporte: decide si
-	 * la resuelves aqui recibiendo esa informacion, o en la clase que coordine
-	 * los equipos del club.
+	 * La condicion 4 no se valida aqui porque un equipo no conoce a los demas
+	 * equipos del club; queda a cargo de quien tenga la lista completa.
 	 *
 	 * Devuelve el JugadorEquipo creado, o null si la inscripcion se rechaza.
-	 * (Si prefieres lanzar una excepcion del paquete exceptions en vez de
-	 * devolver null, cambia la firma: queda mejor para explicar el rechazo.)
 	 */
 	public JugadorEquipo inscribirJugador(Socio socio, String posicion, int numeroCamiseta) {
-		// TODO escribir la regla
-		return null;
+		if (!tieneCupo()) {
+			return null;
+		}
+		if (!categoria.admiteEdad(socio.getEdad())) {
+			return null;
+		}
+		if (!camisetaDisponible(numeroCamiseta)) {
+			return null;
+		}
+
+		JugadorEquipo jugador = new JugadorEquipo(socio, this, posicion, numeroCamiseta);
+		jugadores.add(jugador);
+		return jugador;
 	}
 
 	/**
@@ -76,11 +89,14 @@ public class Equipo {
 	 * es decir, los que no estan suspendidos (RD04 y RD06).
 	 */
 	public int contarJugadoresHabilitados() {
-		// TODO escribir el conteo
-		return 0;
+		int cantidadHabilitados = 0;
+		for (JugadorEquipo jugador : jugadores) {
+			if (!jugador.estaSuspendido()) {
+				cantidadHabilitados++;
+			}
+		}
+		return cantidadHabilitados;
 	}
-
-	// ----------------------------------------------------------------
 
 	public String getNombre() {
 		return nombre;

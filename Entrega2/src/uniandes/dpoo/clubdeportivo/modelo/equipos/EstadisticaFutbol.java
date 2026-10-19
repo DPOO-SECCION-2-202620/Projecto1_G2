@@ -24,7 +24,9 @@ public class EstadisticaFutbol extends EstadisticaPartido {
 	 * REGLA RD06: dos tarjetas amarillas o una roja.
 	 */
 	public boolean generaSuspension() {
-		// TODO escribir la regla
+		if (tarjetasAmarillas >= 2 || tarjetasRojas >= 1) {
+			return true;
+		}
 		return false;
 	}
 

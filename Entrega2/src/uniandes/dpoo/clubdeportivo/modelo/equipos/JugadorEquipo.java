@@ -13,12 +13,16 @@ public class JugadorEquipo {
 	private Equipo equipo;
 	private String posicion;
 	private int numeroCamiseta;
+	private int amarillasAcumuladas;
+	private boolean suspendidoProximoPartido;
 
 	public JugadorEquipo(Socio jugador, Equipo equipo, String posicion, int numeroCamiseta) {
 		this.jugador = jugador;
 		this.equipo = equipo;
 		this.posicion = posicion;
 		this.numeroCamiseta = numeroCamiseta;
+		this.amarillasAcumuladas = 0;
+		this.suspendidoProximoPartido = false;
 	}
 
 	/**
@@ -27,13 +31,27 @@ public class JugadorEquipo {
 	 * REGLA RD06: si acumula dos tarjetas amarillas o recibe una roja, queda
 	 * suspendido para el siguiente partido de su equipo.
 	 *
-	 * Para resolverlo hay que mirar las tarjetas que recibio en los partidos ya
-	 * jugados por su equipo. Decide tu si lo calculas recorriendo los partidos o
-	 * si llevas un contador que se actualiza al registrar cada estadistica.
+	 * El jugador lleva su propio contador de amarillas acumuladas, que se
+	 * actualiza cuando se registra la estadistica de un partido.
 	 */
 	public boolean estaSuspendido() {
-		// TODO escribir la regla
-		return false;
+		return suspendidoProximoPartido;
+	}
+
+	public int getAmarillasAcumuladas() {
+		return amarillasAcumuladas;
+	}
+
+	public void setAmarillasAcumuladas(int amarillasAcumuladas) {
+		this.amarillasAcumuladas = amarillasAcumuladas;
+	}
+
+	public boolean isSuspendidoProximoPartido() {
+		return suspendidoProximoPartido;
+	}
+
+	public void setSuspendidoProximoPartido(boolean suspendidoProximoPartido) {
+		this.suspendidoProximoPartido = suspendidoProximoPartido;
 	}
 
 	public Socio getJugador() {

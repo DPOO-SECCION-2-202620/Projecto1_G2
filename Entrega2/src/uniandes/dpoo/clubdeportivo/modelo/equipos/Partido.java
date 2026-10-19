@@ -24,10 +24,6 @@ public class Partido {
 		this.estadisticas = new ArrayList<EstadisticaPartido>();
 	}
 
-	// ----------------------------------------------------------------
-	// REGLAS DEL PARTIDO - por escribir
-	// ----------------------------------------------------------------
-
 	/**
 	 * Indica si el partido se puede disputar.
 	 *
@@ -37,8 +33,12 @@ public class Partido {
 	 * Ese minimo lo sabe el Deporte, y los habilitados los cuenta el Equipo.
 	 */
 	public boolean puedeJugarse() {
-		// TODO escribir la regla
-		return false;
+		int minimoJugadores = equipoLocal.getDeporte().getMinimoJugadoresHabilitados();
+
+		return equipoLocal.getDeporte().getNombre().equals(equipoVisitante.getDeporte().getNombre())
+				&& equipoLocal.getCategoria().getNombre().equals(equipoVisitante.getCategoria().getNombre())
+				&& equipoLocal.contarJugadoresHabilitados() >= minimoJugadores
+				&& equipoVisitante.contarJugadoresHabilitados() >= minimoJugadores;
 	}
 
 	/**
@@ -48,11 +48,35 @@ public class Partido {
 	 * y el jugador tiene que pertenecer a uno de los dos equipos.
 	 */
 	public void registrarEstadistica(EstadisticaPartido estadistica) {
-		// TODO escribir la validacion antes de agregar
+		String nombreDeporte = equipoLocal.getDeporte().getNombre();
+		boolean tipoCorrecto = false;
+
+		if (nombreDeporte.equals("Futbol") || nombreDeporte.equals("Fútbol")) {
+			tipoCorrecto = estadistica instanceof EstadisticaFutbol;
+		} else if (nombreDeporte.equals("Baloncesto")) {
+			tipoCorrecto = estadistica instanceof EstadisticaBaloncesto;
+		} else if (nombreDeporte.equals("Voleibol")) {
+			tipoCorrecto = estadistica instanceof EstadisticaVoleibol;
+		}
+
+		Equipo equipoJugador = estadistica.getJugador().getEquipo();
+		boolean perteneceAlPartido = equipoJugador == equipoLocal || equipoJugador == equipoVisitante;
+		if (!tipoCorrecto || !perteneceAlPartido) {
+			return;
+		}
+
+		if (estadistica instanceof EstadisticaFutbol) {
+			EstadisticaFutbol estadisticaFutbol = (EstadisticaFutbol) estadistica;
+			JugadorEquipo jugador = estadisticaFutbol.getJugador();
+			int amarillas = jugador.getAmarillasAcumuladas() + estadisticaFutbol.getTarjetasAmarillas();
+			jugador.setAmarillasAcumuladas(amarillas);
+			if (amarillas >= 2 || estadisticaFutbol.generaSuspension()) {
+				jugador.setSuspendidoProximoPartido(true);
+			}
+		}
+
 		estadisticas.add(estadistica);
 	}
-
-	// ----------------------------------------------------------------
 
 	public LocalDate getFecha() {
 		return fecha;

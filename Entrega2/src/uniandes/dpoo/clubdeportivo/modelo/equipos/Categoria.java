@@ -23,7 +23,10 @@ public class Categoria {
 	 * corresponde a la categoria de ese equipo.
 	 */
 	public boolean admiteEdad(int edad) {
-		// TODO escribir la validacion
+		
+		if (edad >= edadMinima && edad <= edadMaxima) {
+			return true;
+		}
 		return false;
 	}
 

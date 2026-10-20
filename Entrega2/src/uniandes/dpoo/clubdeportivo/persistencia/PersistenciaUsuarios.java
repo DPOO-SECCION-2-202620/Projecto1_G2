@@ -9,7 +9,7 @@ import uniandes.dpoo.clubdeportivo.modelo.usuarios.Usuario;
 
 public class PersistenciaUsuarios {
     
-    String ruta = "C:/Datos_Seneca/usuarios.json";
+    String ruta = "datos/usuarios.json";
     
     public void guardarUsuarios(ArrayList<Usuario> listaUsuarios) {
         try {

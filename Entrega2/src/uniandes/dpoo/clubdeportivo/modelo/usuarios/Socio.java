@@ -1,5 +1,9 @@
 package uniandes.dpoo.clubdeportivo.modelo.usuarios;
 
+import java.util.ArrayList;
+
+import uniandes.dpoo.clubdeportivo.modelo.academias.Reserva;
+
 /**
  * ====================================================================
  * CLASE PROVISIONAL - PERTENECE A LA PARTE 2 (usuarios)
@@ -8,21 +12,25 @@ package uniandes.dpoo.clubdeportivo.modelo.usuarios;
  * BORRAR este archivo.
  * ====================================================================
  */
-public class Socio {
+public class Socio extends Usuario{
 
 	private String identificacion;
 	private String login;
 	private String password;
 	private String nombre;
 	private int edad;
+	private ArrayList<Reserva> misReservas;
+
 
 	public Socio(String identificacion, String login, String password, String nombre, int edad) {
-		this.identificacion = identificacion;
-		this.login = login;
-		this.password = password;
-		this.nombre = nombre;
-		this.edad = edad;
-	}
+        super(login, password);
+        this.identificacion = identificacion;
+        this.login = login;
+        this.password = password;
+        this.nombre = nombre;
+        this.edad = edad;
+        this.misReservas = new ArrayList<>();
+    }
 
 	public String getIdentificacion() {
 		return identificacion;
@@ -48,4 +56,8 @@ public class Socio {
 	public String toString() {
 		return nombre;
 	}
+	
+	public void agregarReservaSocio(Reserva nuevaReserva) {
+        this.misReservas.add(nuevaReserva);
+    }
 }

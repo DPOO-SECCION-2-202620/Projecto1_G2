@@ -1,4 +1,6 @@
-package modelo;
+package uniandes.dpoo.clubdeportivo.modelo.academias;
+
+import uniandes.dpoo.clubdeportivo.modelo.usuarios.Socio;
 
 public class Reserva {
     private String fecha;
@@ -56,4 +58,29 @@ public class Reserva {
 	public Socio getSocioResponsable() {
 		return socioResponsable;
 	}
+	
+    public boolean esReservaValida() {
+    	
+        String deporte = instalacionReservada.getDeporte();
+        
+        if (deporte.equalsIgnoreCase("Padel") || deporte.equalsIgnoreCase("Pádel")) {
+            if (cantidadJugadores == 4) {
+                return true;
+            } else {
+                System.out.println("Error: Las reservas de Pádel deben ser de exactamente 4 jugadores.");
+                return false;
+            }
+        } 
+        else if (deporte.equalsIgnoreCase("Tenis") || deporte.equalsIgnoreCase("Tenis de Mesa")) {
+            if (cantidadJugadores == 2 || cantidadJugadores == 4) {
+                return true;
+            } else {
+                System.out.println("Error: Las reservas de " + deporte + " deben ser de 2 o 4 jugadores.");
+                return false;
+            }
+        }
+        
+        System.out.println("Error: Instalación no disponible o deporte desconocido.");
+        return false;
+    }
 }

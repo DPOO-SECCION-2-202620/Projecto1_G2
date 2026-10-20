@@ -1,11 +1,11 @@
-package modelo;
+package uniandes.dpoo.clubdeportivo.persistencia;
 
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.ArrayList;
-
+import java.io.FileWriter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import uniandes.dpoo.clubdeportivo.modelo.usuarios.Usuario;
 
 public class PersistenciaUsuarios {
     

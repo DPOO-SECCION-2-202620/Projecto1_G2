@@ -1,6 +1,10 @@
-package modelo;
+package uniandes.dpoo.clubdeportivo.modelo.entrenamiento;
 
 import java.util.ArrayList;
+
+import uniandes.dpoo.clubdeportivo.modelo.academias.Instalacion;
+import uniandes.dpoo.clubdeportivo.modelo.usuarios.Entrenador;
+import uniandes.dpoo.clubdeportivo.modelo.usuarios.Socio;
 
 public class SesionEntrenamiento {
     private String fecha;
@@ -52,4 +56,13 @@ public class SesionEntrenamiento {
 	public ArrayList<Socio> getJugadoresConvocados() {
 		return jugadoresConvocados;
 	}
+	
+    public void registrarAsistenciaJugador(Socio socio) {
+        if (jugadoresConvocados.size() < 4) {
+            jugadoresConvocados.add(socio);
+            System.out.println("El jugador " + socio.getLogin() + " ha sido registrado en el entrenamiento.");
+        } else {
+            System.out.println("Error: Capacidad máxima del entrenamiento alcanzada (4 jugadores).");
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package modelo;
+package uniandes.dpoo.clubdeportivo.modelo.usuarios;
 
 public abstract class Usuario {
 	private String login;
